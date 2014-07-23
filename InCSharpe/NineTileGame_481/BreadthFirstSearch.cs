@@ -9,6 +9,7 @@ namespace NineTileGame_481
 {
     public class BreadthFirstSearch
     {
+        private int count = 0;
         public bool Search(NineTileGameBoard board, NineTileGameBoard goalBoard, Heuristics.HeuristicTypes heuristicType)
         {
             Heuristics Heuristic = new Heuristics(heuristicType);
@@ -33,6 +34,11 @@ namespace NineTileGame_481
                 {
                     child.PrintBoard(false);
                 }
+
+                // stop infinite loop
+                //this.count++;
+                //if (this.count > 200)
+                //    return false;
 
                 // next iteration
                 Search(nextBoard, goalBoard, heuristicType);

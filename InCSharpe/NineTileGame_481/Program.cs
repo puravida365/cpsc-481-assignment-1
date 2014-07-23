@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,16 +16,16 @@ namespace NineTileGame_481
             NineTileGameBoard startingBoard = new NineTileGameBoard();
             startingBoard.board = new int[,]
             {
-                {3,8,1},
-                {2,0,4},
-                {5,6,7}
+                {2,8,3},
+                {1,6,4},
+                {7,0,5}
             };
 
             // ui title
             Console.WriteLine("Heuristic Search:");
             Console.WriteLine("");
             // choose to define game board
-            Console.WriteLine("Use default game board (3,8,1  2,0,4  5,6,7)?(y/n)");
+            Console.WriteLine("Use default game board (2,8,3  1,6,4  7,0,5)?(y/n)");
             string inputString = Console.ReadLine();
             if(inputString.IndexOf("n",StringComparison.CurrentCultureIgnoreCase) >= 0)
             {
@@ -56,7 +57,7 @@ namespace NineTileGame_481
             else if (heuristicInt > -1 && heuristicInt < 4)
                 bfs.Search(startingBoard, goalBoard, (Heuristics.HeuristicTypes)heuristicInt);
 
-            Console.WriteLine("Done! Output is found in the Output.txt file in the root directory.");
+            Console.WriteLine("Done! Output is found at: " + Directory.GetCurrentDirectory() + @"\Output.txt");
             Console.WriteLine("Hit Enter to Exit...");
             Console.ReadLine();
         }
@@ -70,7 +71,7 @@ namespace NineTileGame_481
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    response.board[row, col] = input[i];
+                    response.board[row, col] = inputArray[i];
                     i++;
                 }
             }
