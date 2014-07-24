@@ -41,25 +41,28 @@ namespace NineTileGame_481
             {
                 for (int col = 0; col < 3; col++)
                 {
-                    // find value in goal board
-                    for (int goalrow = 0; goalrow < 3; goalrow++)
+                    // skip empty
+                    if (board.board[row, col] != 0)
                     {
-                        for (int goalcol = 0; goalcol < 3; goalcol++)
+                        // find value in goal board
+                        for (int goalrow = 0; goalrow < 3; goalrow++)
                         {
-                            if (board.board[row, col] == goalBoard.board[goalrow, goalcol])
-                            { 
-                                // if tiles are adjcent
-                                if((Math.Abs(row-goalrow)==1) || (Math.Abs(col-goalcol)==1))
+                            for (int goalcol = 0; goalcol < 3; goalcol++)
+                            {
+                                if (board.board[row, col] == goalBoard.board[goalrow, goalcol])
                                 {
-                                    // ********************************************************************
-                                    // i feel like this needs more work to check what is adj to the tile
-                                    // ********************************************************************
-                                    response++;
+                                    // if tiles are adjcent
+                                    if ((Math.Abs(row - goalrow) == 1 && Math.Abs(col - goalcol) == 0)
+                                        || (Math.Abs(col - goalcol) == 1 && Math.Abs(row - goalrow) == 0))
+                                    {
+                                        // if values are adjcent
+                                        if (Math.Abs(board.board[goalrow, goalcol] - board.board[row, col]) == 1)
+                                            response = response + 2;
+                                    }
                                 }
                             }
                         }
                     }
-
                 }
             }
             return response;

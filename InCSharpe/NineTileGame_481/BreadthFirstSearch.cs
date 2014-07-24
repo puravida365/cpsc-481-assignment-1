@@ -13,9 +13,15 @@ namespace NineTileGame_481
         public bool Search(NineTileGameBoard board, NineTileGameBoard goalBoard, Heuristics.HeuristicTypes heuristicType)
         {
             Heuristics Heuristic = new Heuristics(heuristicType);
-            // check board is the goal board
-            if (!board.Equals(goalBoard))
+           
+            while(true)
             {
+                if (board.Equals(goalBoard))
+                {
+                    board.PrintBoard(true);
+                    return true;
+                }
+
                 // get childern
                 List<NineTileGameBoard> children = board.GetChildren();
 
@@ -35,19 +41,10 @@ namespace NineTileGame_481
                     child.PrintBoard(false);
                 }
 
-                // stop infinite loop
-                //this.count++;
-                //if (this.count > 200)
-                //    return false;
+                board = nextBoard;
+            }
 
-                // next iteration
-                Search(nextBoard, goalBoard, heuristicType);
-            }
-            else
-            {
-                board.PrintBoard(true);
-                return true;
-            }
+
             return false;
         }
 
