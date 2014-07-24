@@ -11,7 +11,9 @@ class Board
 			if (row >= 0 && col >= 0 && row<NumRows && col<NumCols) {
 				return true;
 			}
-			return false;
+			else{
+				return false;
+			}
 		}
 
 	public:
