@@ -11,6 +11,7 @@ namespace NineTileGame_481
     {
         static void Main(string[] args)
         {
+            Steepest_Descent steepest = new Steepest_Descent();
             BreadthFirstSearch bfs = new BreadthFirstSearch();
             NineTileGameBoard goalBoard = new NineTileGameBoard();
             NineTileGameBoard startingBoard = new NineTileGameBoard();
@@ -34,7 +35,18 @@ namespace NineTileGame_481
                 inputString = Console.ReadLine();
                 startingBoard = StringToNineTileBoard(inputString);
             }
+
+            // choose algorithm to use
+
+            Console.WriteLine("Pick an algoritm to use");
+            Console.WriteLine("For Steepest Descent Climbing - Enter 1");
+            Console.WriteLine("For Breadth First Search - Enter 2");
+
+            inputString = Console.ReadLine();
+            int algorithm_selection = int.Parse(inputString);
+
             // choose heuristic to use
+
             Console.WriteLine("Pick Heuristic to use:");
             Console.WriteLine("For Swap Adjecent Tiles - Enter 0");
             Console.WriteLine("For Sum Tile Moves - Enter 1");
@@ -47,19 +59,37 @@ namespace NineTileGame_481
             int heuristicInt = int.Parse(inputString);
 
             // run search
-            if (heuristicInt == 4)
+            if (heuristicInt == 4 && algorithm_selection == 2)
             {
                 foreach (Heuristics.HeuristicTypes type in Enum.GetValues(typeof(Heuristics.HeuristicTypes)))
                 {
                     bfs.Search(startingBoard, goalBoard, type);
                 }
             }
-            else if (heuristicInt > -1 && heuristicInt < 4)
+            else if (heuristicInt == 4 && algorithm_selection == 1)
+            {
+                foreach (Heuristics.HeuristicTypes type in Enum.GetValues(typeof(Heuristics.HeuristicTypes)))
+                {
+                    steepest.Search(startingBoard, goalBoard, type);
+                }
+            }
+
+
+            else if (heuristicInt > -1 && heuristicInt < 4 && algorithm_selection == 2)
                 bfs.Search(startingBoard, goalBoard, (Heuristics.HeuristicTypes)heuristicInt);
 
             Console.WriteLine("Done! Output is found at: " + Directory.GetCurrentDirectory() + @"\Output.txt");
             Console.WriteLine("Hit Enter to Exit...");
             Console.ReadLine();
+
+            else (heuristicInt > -1 && heuristicInt < 4 && algorithm_selection == 1)
+                steepest.Search(startingBoard, goalBoard, (Heuristics.HeuristicTypes)heuristicInt);
+
+            Console.WriteLine("Done! Output is found at: " + Directory.GetCurrentDirectory() + @"\Output.txt");
+            Console.WriteLine("Hit Enter to Exit...");
+            Console.ReadLine();
+
+
         }
 
         static public NineTileGameBoard StringToNineTileBoard(string input)
